@@ -4,4 +4,11 @@ echo Setting credentials to $USERNAME:$PASSWORD
 PASSWORD=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD)
 id -u $USERNAME &>/dev/null || useradd --shell /bin/sh --create-home --password $PASSWORD $USERNAME
 chown -R $USERNAME:$USERNAME /ftp
+
+cat <<EOD | tee -a /etc/proftpd/proftpd.conf
+Port ${FTP_PORT}
+PassivePorts ${FTP_PASSIVE_PORTS_MIN} ${FTP_PASSIVE_PORTS_MAX}
+MasqueradeAddress ${MASQUERADE_ADDRESS}
+EOD
+
 exec proftpd --nodaemon

@@ -1,11 +1,14 @@
-    docker pull andrewvos/docker-proftpd
-    docker run -p 21:21 -p 20:20 -e USERNAME=username -e PASSWORD=password -v `pwd`/ftp:/ftp andrewvos/docker-proftpd
+    docker pull hypernumbernet/proftpd
 
-    ftp -p localhost 21
-    Name (0.0.0.0:andrew): username
-    Password:
-    ftp> ls
+    docker run -d --restart unless-stopped --name proftpd \
+    --net=host \
+    -e FTP_PORT=21 \
+    -e FTP_PASSIVE_PORTS_MIN 30000 \
+    -e ENV FTP_PASSIVE_PORTS_MAX 30015 \
+    -e MASQUERADE_ADDRESS=10.1.2.3 \
+    -e USERNAME=username -e PASSWORD=password \
+    -v `pwd`/ftp:/ftp \
+    hypernumbernet/proftpd
 
-Note: if you use boot2docker on Mac OSX, be sure to connect to the VM when testing like,
-
-`ftp -p $(boot2docker ip) 21`.
+Using Passive mode.
+Tested client: FileZilla, Windows10 Explorer, FFFTP
