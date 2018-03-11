@@ -1,5 +1,3 @@
-    docker pull hypernumbernet/proftpd
-
     docker run -d --restart unless-stopped --name proftpd \
     --net=host \
     -e FTP_PORT=21 \
@@ -10,5 +8,9 @@
     -v `pwd`/ftp:/ftp \
     hypernumbernet/proftpd
 
-Using Passive mode.
+It can be used in passive mode.
+
+You can deploy this docker image with Rancher.
+[My Rancher Catalog](https://github.com/hypernumbernet/rancher-catalog)
+
 Tested client: FileZilla, Windows10 Explorer, FFFTP
