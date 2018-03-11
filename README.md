@@ -4,7 +4,7 @@
     --net=host \
     -e FTP_PORT=21 \
     -e FTP_PASSIVE_PORTS_MIN 30000 \
-    -e ENV FTP_PASSIVE_PORTS_MAX 30015 \
+    -e FTP_PASSIVE_PORTS_MAX 30015 \
     -e MASQUERADE_ADDRESS=10.1.2.3 \
     -e USERNAME=username -e PASSWORD=password \
     -v `pwd`/ftp:/ftp \
